@@ -58,7 +58,6 @@ def w_partition():
         j = i
         groups.append([])
         while(j < len(param.w)):
-            print(j)
             if sum + param.freq[j] <= 2 * limit:
                 sum += param.freq[j]
                 groups[len(groups) - 1].append(param.w[j])
