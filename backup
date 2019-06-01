@@ -1,0 +1,40 @@
+'''
+DEFINITIONS 3.
+for i in {1,...,(k - 1)/epsilon}
+define the ith level of sigma* to be the set of strings x such that
+1 + (i - 1) * epsilon <= cost(x) < 1 + i * epsilon 
+define level 0 to be the set of strings that cost less than 1
+'''
+def compute_levels(f):
+    max_level = int((k-1)/param.epsilon)
+    codewords = []
+
+    # level0
+    codewords.append([])
+    a = ''
+    for i in range(f[0]):
+        a += param.letters[0]
+    if a != '': codewords[0].append(a)
+
+    for i in range(1,max_level + 1):
+        min_cost = 1 + (i - 1) * param.epsilon
+        max_cost = 1 + i * param.epsilon
+        maximal = 1 + i * param.epsilon - min(param.costs[0], param.epsilon)
+        codewords.append([])
+        compute_possible_codewords(codewords[len(codewords) - 1], f[i], min_cost,max_cost)
+        print(min_cost,max_cost, maximal)
+    return codewords
+
+
+
+# tutte le possibili codewords di costo compreso tra (min_cost, max_cost)
+# nel limite del constraint f
+def compute_possible_codewords(group, f, min_cost,max_cost, codeword = '', cost = 0):
+    if len(group) >= f: return
+    for (i,c) in enumerate(param.costs):
+        if cost + c >= min_cost and cost + c < max_cost and codeword + param.letters[i] not in group:
+            group.append(codeword + param.letters[i])
+            compute_possible_codewords(group, f, min_cost,max_cost, codeword + param.letters[i], cost + c)
+        elif cost + c < min_cost:
+            compute_possible_codewords(group, f, min_cost,max_cost, codeword + param.letters[i], cost + c)
+    return
