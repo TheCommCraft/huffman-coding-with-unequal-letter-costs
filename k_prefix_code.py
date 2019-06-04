@@ -31,7 +31,7 @@ def k_prefix_code(graph,f):
         
         # aggiungo le codewords che rispettano i constraints
         l = 1 + i * param.epsilon - min(param.costs[0], param.epsilon)
-        if v[l] < f[i]: print(i, "inconsistent")
+        if v[l] < f[i] or f[i] == 0: print(l, "inconsistent")
         else:
             count = f[i]
             for c in codewords[l]:
@@ -43,12 +43,14 @@ def k_prefix_code(graph,f):
                 if not no_k_prefix:
                     s.append(c)
                     count -= 1
-                    if count == 0: break
+                    if count == 0: 
+                        break
 
             v[l] -= f[i]
 
-        # se non ho abbastanza codewords aggiungo le codewords di costo minimo
-        # tra quelle di costo >= k che non hanno prefissi di costo < k
+
+    # se non ho abbastanza codewords aggiungo le codewords di costo minimo
+    # tra quelle di costo >= k che non hanno prefissi di costo < k
     if len(s) < len(param.w):
         max_cost = param.k
         while len(s) < len(param.w):

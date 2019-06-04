@@ -1,16 +1,16 @@
 import string
 import random
 import numpy as np
-def generate_freq(words):
-    total = 0
-    freq = []
-    for w in words:
-        new_f = random.randint(1,99)
-        freq.append(new_f)
-        total += new_f
 
-    for i,f in enumerate(freq):
-        freq[i] = f/total
+# generare n frequenze crescenti
+def generate_freq(words):
+    total = round(len(words) * (len(words) + 1) / 2)
+    count = 0
+    freq = []
+    prova = 0
+    for i in range(len(words)):
+        freq.append((len(words) - i) / total)
+        prova += (len(words) - i) / total
 
     return freq
 
@@ -18,8 +18,8 @@ def generate_freq(words):
 #insieme di lettere (words) da codificare e relative frequenze
 # w =     ['a',   'b',    'c',    'd',    'e',    'f',    'g',    'h']
 w = list(string.ascii_lowercase)
-# w = [0] * 5000
-freq =  [0.2,   0.18,   0.25,   0.01,   0.05,   0.14,   0.15,   0.02]
+
+# freq =  [0.2,   0.18,   0.25,   0.01,   0.05,   0.14,   0.15,   0.02]
 
 
 

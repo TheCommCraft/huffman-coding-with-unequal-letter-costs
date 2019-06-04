@@ -48,7 +48,7 @@ def w_partition():
     groups = [[param.w[0]]]
     i = 1
     limit = (1 - param.freq[0]) * pow(param.epsilon, 2) / (2 * param.k)
-    print(limit)
+
     while(i < len(param.w) and param.freq[i] > limit):
         groups.append([param.w[i]])
         i += 1
@@ -63,7 +63,6 @@ def w_partition():
                 groups[len(groups) - 1].append(param.w[j])
                 j += 1
             else: 
-                print("break")
                 break
         i = j
 
@@ -72,16 +71,24 @@ def w_partition():
 
 
 
-# compute_graph_D()
-# k_pref = k_prefix_code(graph,[10,1,1,1,1])
 
-# code_cost = 0
-# for k in k_pref:
-#     code_cost += fun.cost(k)
-#     print(k,fun.cost(k))
-# print(code_cost)
+
+
 
 
 param.freq = param.generate_freq(param.w)
+
 groups = w_partition()
-print(groups)
+f = [0] * (int((param.k-1)/param.epsilon) + 1)
+for i,g in enumerate(groups):
+    print(g)
+    f[i] = len(g)
+print(f)
+compute_graph_D()
+k_pref = k_prefix_code(graph,f)
+
+code_cost = 0
+for k in k_pref:
+    code_cost += fun.cost(k)
+    # print(k,fun.cost(k))
+print(code_cost)
