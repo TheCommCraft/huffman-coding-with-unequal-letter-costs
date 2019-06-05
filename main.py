@@ -1,15 +1,7 @@
 import paramenters as param
 import functions as fun
-from k_prefix_code import k_prefix_code
+from algorithm1 import k_prefix_code
 import algorithm2 as a2
-
-
-'''
-Ogni nodo è un possibile costo di codeword compreso tra 0,k
-Quindi tutte le possibili somme degli elementi di costs minori di k
-C'è un arco da i a j se j - i è un valore in costs
-'''
-graph = {}
 
 
 def compute_nodes(nodes = [], sum = 0):
@@ -24,7 +16,7 @@ def compute_nodes(nodes = [], sum = 0):
 def compute_graph_D():
     nodes = [0]
     compute_nodes(nodes)
-
+    graph = {}
     for i in nodes:
         graph[i] = []
     
@@ -32,6 +24,7 @@ def compute_graph_D():
         for j in graph:
             if j - i in param.costs:
                 graph[i].append(j)
+    return graph
 
 
 
@@ -58,26 +51,29 @@ def w_partition():
         i = j
     return groups
 
-# param.freq = param.generate_freq(param.w)
-# groups = w_partition()
+def main():
+    print("Creazione grafo")
+    graph = compute_graph_D()
 
-# f = [0] * (int((param.k-1)/param.epsilon) + 1)
-# for i,g in enumerate(groups):
-#     f[i] = len(g)
+    print("Partizione di w")
+    groups = w_partition()
 
-# compute_graph_D()
-# k_pref = k_prefix_code(graph,f)
+    print("Creazione dei vincoli f")
+    f = [0] * (int((param.k-1)/param.epsilon) + 1)
+    for i,g in enumerate(groups):
+        f[i] = len(g)
+    print("Creazione k-prefix code")
+    k_pref = k_prefix_code(graph,f)
 
-# code = {}
-
-# for i,word in enumerate(param.w):
-#     code[word] = k_pref[i]
-# for c in code:
-#     print (c, '->', code[c] )
-# print("Costo del codice:",fun.code_cost(code,param.w,param.freq))
+    print("Creazione codice ottimo")
+    code = {}
+    for i,word in enumerate(param.w):
+        code[word] = k_pref[i]
+    return code
 
 
 
-s = 'ababaa'
-sa2 = a2.algorithm2(s)
-print(s, fun.cost(s),sa2,fun.cost(sa2))
+param.freq = param.generate_freq(param.w)
+code = main()
+
+print(code,fun.code_cost(code, param.w,param.freq))
