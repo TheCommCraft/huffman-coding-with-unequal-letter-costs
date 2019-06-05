@@ -1,14 +1,7 @@
 import paramenters as param
 import functions as fun
 from k_prefix_code import k_prefix_code
-
-
-
-'''
-a tuple f = (f(0), . . . , f((k - 1)/epsilon)) o integers
-if f(0) =  0, then there must be no codeword in level 0
-'''
-#f = (0,10,10,10,10)
+import algorithm2 as a2
 
 
 '''
@@ -17,8 +10,6 @@ Quindi tutte le possibili somme degli elementi di costs minori di k
 C'è un arco da i a j se j - i è un valore in costs
 '''
 graph = {}
-
-
 
 
 def compute_nodes(nodes = [], sum = 0):
@@ -65,30 +56,28 @@ def w_partition():
             else: 
                 break
         i = j
-
     return groups
 
+# param.freq = param.generate_freq(param.w)
+# groups = w_partition()
+
+# f = [0] * (int((param.k-1)/param.epsilon) + 1)
+# for i,g in enumerate(groups):
+#     f[i] = len(g)
+
+# compute_graph_D()
+# k_pref = k_prefix_code(graph,f)
+
+# code = {}
+
+# for i,word in enumerate(param.w):
+#     code[word] = k_pref[i]
+# for c in code:
+#     print (c, '->', code[c] )
+# print("Costo del codice:",fun.code_cost(code,param.w,param.freq))
 
 
 
-
-
-
-
-
-param.freq = param.generate_freq(param.w)
-
-groups = w_partition()
-f = [0] * (int((param.k-1)/param.epsilon) + 1)
-for i,g in enumerate(groups):
-    print(g)
-    f[i] = len(g)
-print(f)
-compute_graph_D()
-k_pref = k_prefix_code(graph,f)
-
-code_cost = 0
-for k in k_pref:
-    code_cost += fun.cost(k)
-    # print(k,fun.cost(k))
-print(code_cost)
+s = 'ababaa'
+sa2 = a2.algorithm2(s)
+print(s, fun.cost(s),sa2,fun.cost(sa2))

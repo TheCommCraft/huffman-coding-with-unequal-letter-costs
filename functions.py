@@ -9,6 +9,18 @@ def prefix(s1,s2):
 def k_prefix(s1,s2):
     return prefix(s1,s2) and cost(s1) < param.k
 
+# controlla se il codice (array di codewords) è prefix-free
+def check_prefix_free(code):
+    prefix_free = True
+    for c1 in code:
+        for c2 in code:
+            if c1 == c2: continue
+            prefix_free = not prefix(c2,c1)
+            if not prefix_free: 
+                print(c2,c1)
+                return False
+    return True
+
 
 # calcola il costo della stringa x
 def cost(x):
@@ -16,6 +28,13 @@ def cost(x):
     for l in x:
         cost += param.costs[param.letters.index(l)]
     return cost
+
+# calcola il costo totale del codice
+def code_cost(code,w,freq):
+    total = 0
+    for c in code:
+        total += freq[w.index(c)] * cost(code[c])
+    return total
 
 #genera tutte le possibili codewords di un costo fissato
 def create_codewords(group,codeword_cost,codeword = '', cost = 0):
