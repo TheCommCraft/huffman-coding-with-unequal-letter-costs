@@ -2,10 +2,9 @@ import string
 import random
 import numpy as np
 
-# generare n frequenze crescenti
+# generare n frequenze crescenti che sommano a 1
 def generate_freq(words):
     total = round(len(words) * (len(words) + 1) / 2)
-    count = 0
     freq = []
     prova = 0
     for i in range(len(words)):
@@ -14,14 +13,8 @@ def generate_freq(words):
 
     return freq
 
-
 #insieme di lettere (words) da codificare e relative frequenze
-# w =     ['a',   'b',    'c',    'd',    'e',    'f',    'g',    'h']
 w = list(string.ascii_lowercase)
-
-# freq =  [0.2,   0.18,   0.25,   0.01,   0.05,   0.14,   0.15,   0.02]
-
-
 
 '''
 - l1 <= l2 <= l3 ... <= lr
@@ -35,7 +28,6 @@ all codeword costs are integer multiples of min{ l1, epsilon }
 letters =   ['a',   'b',    'c']
 costs =     [0.5,     1 ,     4]
 epsilon = 2
-
 
 '''
 choose k = theta(log(1/epsilon)/epsilon)
