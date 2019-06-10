@@ -1,3 +1,5 @@
+import math
+
 import paramenters as param
 import functions as fun
 from algorithm1 import k_prefix_code
@@ -61,10 +63,17 @@ def main():
     print("Creazione dei vincoli f")
     f = [0] * (int((param.k-1)/param.epsilon) + 1)
     for i,g in enumerate(groups):
-        f[i] = len(g)
+        if i == 0 and param.costs[0] < 1:
+            # dimensione della massima parola di costo < 1
+            q = math.floor(1 / param.costs[0])
+            f[0] = q if i % param.costs[0] != 0 else q - 1
+        else:
+            f[i] = len(g)
+    print(f)
     print("Creazione k-prefix code")
     k_pref = k_prefix_code(graph,f)
-
+    if not fun.check_prefix_free(k_pref):
+        print("Codice non prefix-free, utilizzo dell'algoritmo 2")
     print("Creazione codice ottimo")
     code = {}
     for i,word in enumerate(param.w):

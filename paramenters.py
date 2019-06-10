@@ -16,14 +16,7 @@ def generate_freq(words):
 #insieme di lettere (words) da codificare e relative frequenze
 w = list(string.ascii_lowercase)
 
-'''
-- l1 <= l2 <= l3 ... <= lr
-ASSUMPTION 1.
-each li for i >= 2 is an integer multiple of epsilon
-l2 equals 1
-epsilon is either an integer multiple of l1 or evenly divides l1
-all codeword costs are integer multiples of min{ l1, epsilon }
-'''
+
 #lettere dell'alfabeto che formano le codewords e relativi costi
 letters =   ['a',   'b',    'c']
 costs =     [0.5,     1 ,     4]
