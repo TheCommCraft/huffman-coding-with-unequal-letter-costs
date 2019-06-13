@@ -3,7 +3,7 @@ import math
 import paramenters as param
 import functions as fun
 from algorithm1 import k_prefix_code
-import algorithm2 as a2
+from algorithm2 import algorithm2
 
 
 def compute_nodes(nodes = [], sum = 0):
@@ -12,8 +12,6 @@ def compute_nodes(nodes = [], sum = 0):
             nodes.append(sum + c)
             compute_nodes(nodes,sum + c)
         else: return
-
-
 
 def compute_graph_D():
     nodes = [0]
@@ -27,8 +25,6 @@ def compute_graph_D():
             if j - i in param.costs:
                 graph[i].append(j)
     return graph
-
-
 
 def w_partition():
     groups = [[param.w[0]]]
@@ -54,13 +50,10 @@ def w_partition():
     return groups
 
 def main():
-    print("Creazione grafo")
     graph = compute_graph_D()
 
-    print("Partizione di w")
     groups = w_partition()
 
-    print("Creazione dei vincoli f")
     f = [0] * (int((param.k-1)/param.epsilon) + 1)
     for i,g in enumerate(groups):
         if i == 0 and param.costs[0] < 1:
@@ -69,20 +62,26 @@ def main():
             f[0] = q if i % param.costs[0] != 0 else q - 1
         else:
             f[i] = len(g)
-    print(f)
-    print("Creazione k-prefix code")
+
     k_pref = k_prefix_code(graph,f)
+
     if not fun.check_prefix_free(k_pref):
         print("Codice non prefix-free, utilizzo dell'algoritmo 2")
-    print("Creazione codice ottimo")
+        algorithm2(k_pref)
+
     code = {}
     for i,word in enumerate(param.w):
         code[word] = k_pref[i]
     return code
 
-
-
+#genero le frequenze delle parole di w
 param.freq = param.generate_freq(param.w)
-code = main()
 
-print(code,fun.code_cost(code, param.w,param.freq))
+code = main()
+total = 0
+for c in code:
+    total += fun.cost(code[c])
+    print(c, ":",code[c],"-",fun.cost(code[c]))
+print("Costo totale del codice:", fun.code_cost(code, param.w,param.freq))
+mean = total / len(code)
+print("Costo medio delle codewords:", mean)

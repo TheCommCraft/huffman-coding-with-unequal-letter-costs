@@ -22,8 +22,4 @@ letters =   ['a',   'b',    'c']
 costs =     [0.5,     1 ,     4]
 epsilon = 2
 
-'''
-choose k = theta(log(1/epsilon)/epsilon)
-so k - 1 is a multiple of epsilon
-'''
 k = 9
