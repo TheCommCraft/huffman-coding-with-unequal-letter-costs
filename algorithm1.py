@@ -71,11 +71,6 @@ def k_prefix_code(graph,f):
     return s
 
 
-
-'''
-define vs(l) to be the number of strings of cost l
-having no prefix in s
-'''
 def vs(set_s, strings):
     count = 0
     for s in strings:

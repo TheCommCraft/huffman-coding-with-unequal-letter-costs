@@ -3,4 +3,3 @@ __pycache__
 .vscode
 backup.py
 huffman.py
-utilities.py

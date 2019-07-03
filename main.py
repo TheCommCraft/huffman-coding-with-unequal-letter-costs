@@ -74,10 +74,16 @@ def main():
         code[word] = k_pref[i]
     return code
 
+
+
+
 #genero le frequenze delle parole di w
 param.freq = param.generate_freq(param.w)
 
+#genero il codice di costo minimo
 code = main()
+
+#calcolo il costo del codice
 total = 0
 for c in code:
     total += fun.cost(code[c])
