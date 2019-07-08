@@ -59,7 +59,7 @@ def main():
         if i == 0 and param.costs[0] < 1:
             # dimensione della massima parola di costo < 1
             q = math.floor(1 / param.costs[0])
-            f[0] = q if i % param.costs[0] != 0 else q - 1
+            f[0] = q if q % param.costs[0] != 0 else q - 1
         else:
             f[i] = len(g)
 
