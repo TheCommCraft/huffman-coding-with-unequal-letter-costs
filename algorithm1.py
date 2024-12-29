@@ -7,9 +7,7 @@ def k_prefix_code(graph,f):
     codewords = fun.all_codewords(param.k)
     # caso f[0] > 0
     if f[0] > 0:
-        af0 = ''
-        for j in range(0,f[0]):
-            af0+= param.letters[0]
+        af0 = param.letters[0]*f[0]
         s.append(af0)
         for l in graph:
             if l < 1: v[l] = f[0]
