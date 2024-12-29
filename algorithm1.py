@@ -10,7 +10,7 @@ def k_prefix_code(graph,f):
         af0 = param.letters[0]*f[0]
         s.append(af0)
         for l in graph:
-            if l < 1: v[l] = f[0]
+            if l < 1: v[l] = 1
             else: break
 
     max_level = int((param.k-1)/param.epsilon)
